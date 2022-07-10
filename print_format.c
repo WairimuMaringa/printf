@@ -20,18 +20,31 @@ int _printf(const char *format, ...)
 	{
 	}
 
-	for (j = 0; j < i; j++)
+	for (j = 0; format[j] != '%'; j++)
 	{
-		if (format[j] == 'c')
-		{
-			printf("%c, ", va_arg(list, int));
+			/**
+			l = j + 1;
+			if (format[++j] == 'c')
+			{
+				printf("%c, ", va_arg(list, int));
+			}
+			else if (format[++j] == 's')
+			{
+				printf("%s", va_arg(list, char *));
+			}
+			else if (format[l] == 'd')
+			{
+				printf("%d", va_arg(list, int));
+			}
 		}
-		else if (format[j] == 's')
-		{
-			printf("%s", va_arg(list, char *));
-		}
+	else
+	{
+		printf("%s", format);
+	}**/
+	
 	}
 	printf("\n");
+	printf("%d\n", j);
 	k = strlen(va_arg(list, int) + va_arg(list, char *));
 return (k - 1);
 }
