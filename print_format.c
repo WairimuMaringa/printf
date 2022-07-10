@@ -50,7 +50,7 @@ int _printf(const char *format, ...)
 			_putchar(format[m]);
 		}
 		printf("%d", va_arg(list, int));
-		for (n = j + 2; format[n] != '\0'; n++)
+		for (n = j + 2; format[n] != '\n'; n++)
 		{
 			_putchar(format[n]);
 		}
