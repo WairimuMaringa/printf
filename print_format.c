@@ -10,7 +10,7 @@
  */
 int _printf(const char *format, ...)
 {
-	int i, j, k;
+	int i, j, k, m, n;
 
 	va_list list;
 
@@ -43,8 +43,32 @@ int _printf(const char *format, ...)
 	}**/
 	
 	}
+	if (format[j + 1] == 'd')
+	{
+		for (m = 0; format[m] != '%'; m++)
+		{
+			_putchar(format[m]);
+		}
+		printf("%d", va_arg(list, int));
+		for (n = j + 2; format[n] != '\0'; n++)
+		{
+			_putchar(format[n]);
+		}
+	}
+	else if (format[j + 1] == 'c')
+	{
+		printf("%c", va_arg(list, int));
+	}
+	else if (format[j + 1] == 's')
+	{
+		printf("%s", va_arg(list, char *));
+	}
+	else
+	{
+		printf("%s", format);
+	}
 	printf("\n");
-	printf("%d\n", j);
 	k = strlen(va_arg(list, int) + va_arg(list, char *));
+	va_end(list);
 return (k - 1);
 }
