@@ -10,7 +10,6 @@
 /* Prototypes */
 int _printf(const char *format, ...);
 int _putchar(char c);
-char* itoa(int, char* , int);
 
 
 

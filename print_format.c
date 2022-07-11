@@ -1,67 +1,78 @@
 #include "main.h"
-#include <unistd.h>
 #include <limits.h>
 #include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 /**
- * _printf - prints to output based on fomart
- * @format: character arrsy
+ * _printf - prints anything
+ * @format: coversion specifiers
  *
- * Return: Returns number of printed characters
+ * Return: Number of char printed
  */
 int _printf(const char *format, ...)
 {
-	int i, j, k, l, m, len, n, o;
+	int lenf, lenp, i, j, k, nprint, ch;
 
-	char *str;
+	char *str = NULL;
 
 	va_list list;
 
+	i = 0;
+	k = 0;
+
 	va_start(list, format);
-	
 
-
-	for (i = 0; format[i] != '\0'; i++)
+	for (lenf = 0; format[lenf] != '\0'; lenf++)
 	{
 	}
-	for (j = 0; format[j] != '%'; j++)
+	for (lenp = 0; format[lenp] != '%'; lenp++)
 	{
 	}
-	if (format[j + 1] == 'c')
+	while (format[k] != '\0')
 	{
-		for (k = 0; format[k] != '%'; k++)
+		if ((format[k] == '%') && (k + 1 < lenf))
 		{
-			_putchar(format[k]);
+			switch(format[k + 1])
+			{
+				case 's':
+				{
+					for (j = 0; j < lenp; j++)
+					{
+						_putchar(format[j]);
+					}
+					str = malloc(sizeof(char) * lenf);
+					str = va_arg(list, char *);
+					if (str != NULL)
+					{
+						while (str[i] != '\0')
+						{
+							nprint++;
+							_putchar(str[i]);
+							i++;
+						}
+					}
+					for (j = lenp + 2; format[j] != '\0'; j++)
+					{
+						_putchar(format[j]);
+					}
+				}
+				break;
+				case 'c':
+				{
+					ch = va_arg(list, int);
+					for (j = 0; j < lenp; j++)
+					{
+						_putchar(format[j]);
+					}
+						_putchar(ch);
+						nprint++;
+					for (j = lenp + 2; format[j] != '\0'; j++)
+					{
+						_putchar(format[j]);
+					}
+				}
+				break;
 		}
-		_putchar(va_arg(list, int));
-		for (l = j + 2; format[l] != '\0'; l++)
-		printf("%d", va_arg(list, int));
-		for (n = j + 2; format[n] != '\n'; n++)
-		{
-			_putchar(format[l]);
-		}
-		return (i - 1);
 	}
-	else if (format[j + 1] == 's')
-	{
-		len = strlen(va_arg(list, char *));
-		str = malloc(sizeof(char) * len);
-		str = va_arg(list, char *);
-		for (m = 0; format[m] != '%'; m++)
-		{
-			_putchar(format[m]);
-		}
-		for (n = j; str[n] != '\0'; n++)
-		{
-			_putchar(str[n]);
-		}
-		for (o = j + 2; format[o] != '\0'; o++)
-		{
-			_putchar(format[o]);
-		}
-		return (len + m + (len - o));
+		k++;
 	}
-	return (0);
+	return (nprint + lenf - 2);
 }
