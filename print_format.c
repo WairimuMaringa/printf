@@ -9,17 +9,23 @@
  */
 int _printf(const char *format, ...)
 {
-	int lenf, lenp, i, j, k, nprint, ch;
+	int lenf, lenp, i, j, k, nprint, ch, num, temp, n;
 
 	char *str = NULL;
+
+	int nums[10];
 
 	va_list list;
 
 	i = 0;
 	k = 0;
-
+	n = 0;
 	va_start(list, format);
 
+	if (format == NULL)
+	{
+		return (0);
+	}
 	for (lenf = 0; format[lenf] != '\0'; lenf++)
 	{
 	}
@@ -70,9 +76,77 @@ int _printf(const char *format, ...)
 					}
 				}
 				break;
+				case '%':
+				{
+					for (j = 0; j < lenp; j++)
+					{
+						_putchar(format[j]);
+					}
+					_putchar('%');
+					for (j = lenp + 2; format[j] != '\0'; j++)
+					{
+						_putchar(format[j]);
+					}
+					nprint = 1;
+				}
+				break;
+				case 'd':
+				{
+					num = va_arg(list, int);
+					temp = num;
+					for (j = 0; j < lenp; j++)
+					{
+						_putchar(format[j]);
+					}
+					if (num < 0)
+					{
+						num = -num;
+					}
+					while (num != 0)
+					{
+						nums[n++] = (num % 10);
+						num /= 10;
+					}
+					if (temp < 0)
+					{
+						nums[j++] = '-';
+					}
+					nprint += j;
+					nprint--;
+					while (j >= 0)
+					{
+						if (nums[j] != '-')
+						{
+							_putchar(nums[j--] + '0');
+						}
+						else
+						{
+							_putchar(nums[j--]);
+						}
+					}
+					for (j = lenp + 2; format[j] != '\0'; j++)
+					{
+						_putchar(format[j]);
+					}
+				}
+				break;
+				default:
+				{
+					str = malloc(sizeof(char) * lenf);
+					str = va_arg(list, char *);
+					if (str != NULL)
+					{
+						for (j = 0; str[j] != '\0'; j++)
+						{
+							_putchar(str[j]);
+						}
+						nprint = j - 1;
+					}
+				}
+			}
 		}
-	}
+	
 		k++;
 	}
-	return (nprint + lenf - 2);
+	return (nprint);
 }
