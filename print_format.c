@@ -1,6 +1,9 @@
 #include "main.h"
+#include <unistd.h>
+#include <limits.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 /**
  * _printf - prints to output based on fomart
@@ -10,65 +13,53 @@
  */
 int _printf(const char *format, ...)
 {
-	int i, j, k, m, n;
+	int i, j, k, l, m, len, n, o;
+
+	char *str;
 
 	va_list list;
 
 	va_start(list, format);
+	
+
 
 	for (i = 0; format[i] != '\0'; i++)
 	{
 	}
-
 	for (j = 0; format[j] != '%'; j++)
 	{
-			/**
-			l = j + 1;
-			if (format[++j] == 'c')
-			{
-				printf("%c, ", va_arg(list, int));
-			}
-			else if (format[++j] == 's')
-			{
-				printf("%s", va_arg(list, char *));
-			}
-			else if (format[l] == 'd')
-			{
-				printf("%d", va_arg(list, int));
-			}
-		}
-	else
-	{
-		printf("%s", format);
-	}**/
-	
 	}
-	if (format[j + 1] == 'd')
+	if (format[j + 1] == 'c')
 	{
+		for (k = 0; format[k] != '%'; k++)
+		{
+			_putchar(format[k]);
+		}
+		_putchar(va_arg(list, int));
+		for (l = j + 2; format[l] != '\0'; l++)
+		{
+			_putchar(format[l]);
+		}
+		return (i - 1);
+	}
+	else if (format[j + 1] == 's')
+	{
+		len = strlen(va_arg(list, char *));
+		str = malloc(sizeof(char) * len);
+		strcpy(str, va_arg(list, char *));
 		for (m = 0; format[m] != '%'; m++)
 		{
 			_putchar(format[m]);
 		}
-		printf("%d", va_arg(list, int));
-		for (n = j + 2; format[n] != '\0'; n++)
+		for (n = j; str[n] != '\0'; n++)
 		{
-			_putchar(format[n]);
+			_putchar(str[n]);
 		}
+		for (o = j + 2; format[o] != '\0'; o++)
+		{
+			_putchar(format[o]);
+		}
+		return (len + m + (len - o));
 	}
-	else if (format[j + 1] == 'c')
-	{
-		printf("%c", va_arg(list, int));
-	}
-	else if (format[j + 1] == 's')
-	{
-		printf("%s", va_arg(list, char *));
-	}
-	else
-	{
-		printf("%s", format);
-	}
-	printf("\n");
-	k = strlen(va_arg(list, int) + va_arg(list, char *));
-	va_end(list);
-return (k - 1);
+	return (0);
 }
