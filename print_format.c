@@ -35,13 +35,10 @@ int _printf(const char *format, ...)
 		{
 			_putchar(format[k]);
 		}
-<<<<<<< HEAD
 		_putchar(va_arg(list, int));
 		for (l = j + 2; format[l] != '\0'; l++)
-=======
 		printf("%d", va_arg(list, int));
 		for (n = j + 2; format[n] != '\n'; n++)
->>>>>>> 3cab843fe32d404aa7e2507adb5aa72b63a3f145
 		{
 			_putchar(format[l]);
 		}
@@ -51,7 +48,7 @@ int _printf(const char *format, ...)
 	{
 		len = strlen(va_arg(list, char *));
 		str = malloc(sizeof(char) * len);
-		strcpy(str, va_arg(list, char *));
+		str = va_arg(list, char *);
 		for (m = 0; format[m] != '%'; m++)
 		{
 			_putchar(format[m]);
