@@ -12,7 +12,7 @@ int _printf(const char *format, ...)
 {
 	int lenf, lenp, i, j, k, nprint, ch, num, temp, n;
 
-	int nums[10];
+	int *nums;
 
 	char *str = NULL;
 
@@ -99,6 +99,7 @@ int _printf(const char *format, ...)
 				break;
 				case 'i':
 				{
+					nums = malloc(sizeof(int) * 7);
 					num = va_arg(list, int);
 					temp = num;
 					for (j = 0; j < lenp; j++)
@@ -109,6 +110,8 @@ int _printf(const char *format, ...)
 					{
 						num = -num;
 					}
+					if (nums != NULL)
+					{
 					while (num != 0)
 					{
 						nums[n++] = (num % 10);
@@ -131,16 +134,18 @@ int _printf(const char *format, ...)
 							_putchar(nums[j--]);
 						}
 					}
-				
+					}
 					for (j = lenp + 2; format[j] != '\0'; j++)
 					{
 						_putchar(format[j]);
 					}
+					free(nums);
 					nprint += (lenf - 2);
 				}
 				break;
 				case 'd':
 				{
+					nums = malloc(sizeof(int) * 7);
 					num = va_arg(list, int);
 					temp = num;
 					for (j = 0; j < lenp; j++)
@@ -151,6 +156,8 @@ int _printf(const char *format, ...)
 					{
 						num = -num;
 					}
+					if (nums != NULL)
+					{
 					while (num != 0)
 					{
 						nums[n++] = (num % 10);
@@ -173,10 +180,12 @@ int _printf(const char *format, ...)
 							_putchar(nums[j--]);
 						}
 					}
+					}
 					for (j = lenp + 2; format[j] != '\0'; j++)
 					{
 						_putchar(format[j]);
 					}
+					free(nums);
 					nprint += (lenf - 2);
 				}
 				break;
