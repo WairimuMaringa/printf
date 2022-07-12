@@ -40,7 +40,7 @@ int _printf(const char *format, ...)
 	{
 		if ((format[k] == '%') && (k + 1 < lenf))
 		{
-			switch(format[k + 1])
+			switch (format[k + 1])
 			{
 				case 's':
 				{
@@ -205,7 +205,6 @@ int _printf(const char *format, ...)
 				}
 			}
 		}
-	
 		k++;
 	}
 	va_end(list);
