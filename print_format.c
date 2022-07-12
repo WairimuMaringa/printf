@@ -20,6 +20,8 @@ int _printf(const char *format, ...)
 	i = 0;
 	k = 0;
 	n = 0;
+	nprint = 0;
+	num = 0;
 	va_start(list, format);
 
 	if (format == NULL)
@@ -59,6 +61,7 @@ int _printf(const char *format, ...)
 					{
 						_putchar(format[j]);
 					}
+					nprint += (lenf - 2);
 				}
 				break;
 				case 'c':
@@ -74,6 +77,7 @@ int _printf(const char *format, ...)
 					{
 						_putchar(format[j]);
 					}
+					nprint += (lenf - 2);
 				}
 				break;
 				case '%':
@@ -87,7 +91,48 @@ int _printf(const char *format, ...)
 					{
 						_putchar(format[j]);
 					}
-					nprint = 1;
+					nprint += (lenf - 1);
+				}
+				break;
+				case 'i':
+				{
+					num = va_arg(list, int);
+					temp = num;
+					for (j = 0; j < lenp; j++)
+					{
+						_putchar(format[j]);
+					}
+					if (num < 0)
+					{
+						num = -num;
+					}
+					while (num != 0)
+					{
+						nums[n++] = (num % 10);
+						num /= 10;
+					}
+					if (temp < 0)
+					{
+						nums[j++] = '-';
+					}
+					nprint += j;
+					nprint--;
+					while (j >= 0)
+					{
+						if (nums[j] != '-')
+						{
+							_putchar(nums[j--] + '0');
+						}
+						else
+						{
+							_putchar(nums[j--]);
+						}
+					}
+					for (j = lenp + 2; format[j] != '\0'; j++)
+					{
+						_putchar(format[j]);
+					}
+					nprint += (lenf - 2);
 				}
 				break;
 				case 'd':
@@ -128,6 +173,7 @@ int _printf(const char *format, ...)
 					{
 						_putchar(format[j]);
 					}
+					nprint += (lenf - 2);
 				}
 				break;
 				default:
@@ -140,7 +186,7 @@ int _printf(const char *format, ...)
 						{
 							_putchar(str[j]);
 						}
-						nprint = j - 1;
+						nprint += (j - 1);
 					}
 				}
 			}
