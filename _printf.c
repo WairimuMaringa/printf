@@ -13,7 +13,7 @@ int _printf(const char *format, ...)
 	unsigned int len = 0;
 
 	print_t print[] = {
-		{"c", prt_char}, {"s", prt_str}, {"d", prt_dec}, {"i", prt_int},
+		{"c", print_c}, {"s", print_s}, {"d", print_d}, {"i", print_i},
 		{NULL, NULL}
 	};
 
