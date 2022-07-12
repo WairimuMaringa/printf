@@ -24,7 +24,7 @@ int _printf(const char *format, ...)
 	{}
 	if (per < len)
 	{
-		switch(format[per + 1])
+		switch (format[per + 1])
 		{
 			case 'd':
 			{
