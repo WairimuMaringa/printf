@@ -11,9 +11,9 @@ int _printf(const char *format, ...)
 {
 	int lenf, lenp, i, j, k, nprint, ch, num, temp, n;
 
-	char *str = NULL;
+	int *nums;
 
-	int nums[10];
+	char *str = NULL;
 
 	va_list list;
 
@@ -22,6 +22,7 @@ int _printf(const char *format, ...)
 	n = 0;
 	nprint = 0;
 	num = 0;
+	temp = 0;
 	va_start(list, format);
 
 	if (format == NULL)
@@ -61,6 +62,7 @@ int _printf(const char *format, ...)
 					{
 						_putchar(format[j]);
 					}
+					free(str);
 					nprint += (lenf - 2);
 				}
 				break;
@@ -98,6 +100,7 @@ int _printf(const char *format, ...)
 				{
 					num = va_arg(list, int);
 					temp = num;
+					nums = malloc(sizeof(int) * 7);
 					for (j = 0; j < lenp; j++)
 					{
 						_putchar(format[j]);
@@ -106,6 +109,8 @@ int _printf(const char *format, ...)
 					{
 						num = -num;
 					}
+					if (nums != NULL)
+					{
 					while (num != 0)
 					{
 						nums[n++] = (num % 10);
@@ -128,10 +133,12 @@ int _printf(const char *format, ...)
 							_putchar(nums[j--]);
 						}
 					}
+				}
 					for (j = lenp + 2; format[j] != '\0'; j++)
 					{
 						_putchar(format[j]);
 					}
+					free(nums);
 					nprint += (lenf - 2);
 				}
 				break;
@@ -139,6 +146,7 @@ int _printf(const char *format, ...)
 				{
 					num = va_arg(list, int);
 					temp = num;
+					nums = malloc(sizeof(int) * 7);
 					for (j = 0; j < lenp; j++)
 					{
 						_putchar(format[j]);
@@ -147,6 +155,8 @@ int _printf(const char *format, ...)
 					{
 						num = -num;
 					}
+					if (nums != NULL)
+					{
 					while (num != 0)
 					{
 						nums[n++] = (num % 10);
@@ -169,10 +179,12 @@ int _printf(const char *format, ...)
 							_putchar(nums[j--]);
 						}
 					}
+					}
 					for (j = lenp + 2; format[j] != '\0'; j++)
 					{
 						_putchar(format[j]);
 					}
+					free(nums);
 					nprint += (lenf - 2);
 				}
 				break;
@@ -188,11 +200,13 @@ int _printf(const char *format, ...)
 						}
 						nprint += (j - 1);
 					}
+					free(str);
 				}
 			}
 		}
 	
 		k++;
 	}
+	va_end(list);
 	return (nprint);
 }
