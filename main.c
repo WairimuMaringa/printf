@@ -24,9 +24,9 @@ int main(void)
 
 
 
-			len = _printf("%i", 1024);
+			len = _printf("%b", 1024);
 
-				len2 = printf("%i", 1024);
+				len2 = printf("10000000000");
 
 					fflush(stdout);
 

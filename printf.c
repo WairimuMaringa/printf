@@ -8,6 +8,8 @@ int _printf(const char *format, ...)
 
 	int nums;
 
+	int str2[80];
+
 	va_list list;
 
 	int str[8];
@@ -35,6 +37,45 @@ int _printf(const char *format, ...)
 			case '\0':
 			{
 				nprint = 0;
+			}
+			break;
+			case 'b':
+			{
+				for (count = 0; count < per; count++)
+				{
+					_putchar(format[count]);
+					nprint++;
+				}
+				nums = va_arg(list, unsigned int);
+				if (nums > 0)
+				{
+					for (count = 0; count < per; count++)
+					{
+						_putchar(format[count]);
+					}
+					while (nums > 0)
+					{
+						str2[digits] = nums % 2;
+						nums = nums / 2;
+						digits++;	
+					}
+					for (count = digits - 1; count >= 0; count--)
+					{
+						_putchar(str2[count] + '0');
+						nprint++;
+					}
+				}
+				else if (nums == 0)
+				{
+					str2[0] = nums;
+					_putchar(str[0] + '0');
+					nprint++;
+				}
+				for (count = per + 2; format[count] != '\0'; count++)
+				{
+					_putchar(format[count]);
+					nprint++;
+				}
 			}
 			break;
 			case 'i':
