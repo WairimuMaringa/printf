@@ -3,23 +3,23 @@
 #include <stdio.h>
 int _printf(const char *format, ...)
 {
-	int len, per, count, nprint, digits, temp;
-
+	int len, per, count, nprint, digits, neg;
 	char *token;
 
 	int nums;
 
 	va_list list;
 
-	char str[8];
+	int str[8];
 
 	char null[7] = "(null)";
 
 	va_start(list, format);
 
 	nprint = 0;
-	digits = 0;
 	count = 0;
+	digits = 0;
+	neg = 1;
 	if (format == NULL)
 	{
 		nprint = 0;
@@ -37,6 +37,59 @@ int _printf(const char *format, ...)
 				nprint = 0;
 			}
 			break;
+			case 'i':
+			{
+				for (count = 0; count < per; count++)
+				{
+					_putchar(format[count]);
+					nprint++;
+				}
+				nums = va_arg(list, int);
+				if (nums > 0)
+				{
+					while (nums > 0)
+					{
+						str[digits] = nums % 10;
+						nums = nums / 10;
+						digits++;		
+					}
+					for (count = digits - 1; count >= 0; count--)
+					{
+						_putchar(str[count] + '0');
+						nprint++;
+					}
+				}
+				else if (nums < 0)
+				{
+					str[0] = '-';
+					nums *= - 1;
+					while (nums > 0)
+					{
+						str[neg] = nums % 10;
+						nums = nums / 10;
+						neg++;
+					}
+					_putchar(str[0]);
+					nprint++;
+					for (count = neg - 1; count >= 1; count--)
+					{
+						_putchar(str[count] + '0');
+						nprint++;
+					}
+				}
+				else
+				{
+					str[0] = nums;
+					_putchar(str[0] + '0');
+					nprint++;
+				}
+				for (count = per + 2; format[count] != '\0'; count++)
+				{
+					_putchar(format[count]);
+					nprint++;
+				}
+			}
+			break;
 			case 'd':
 			{
 				for (count = 0; count < per; count++)
@@ -45,25 +98,49 @@ int _printf(const char *format, ...)
 					nprint++;
 				}
 				nums = va_arg(list, int);
-				temp = nums;
-				while (nums != 0)
+				if (nums > 0)
 				{
-					nums = nums / 10;
-					digits++;
+					while (nums > 0)
+					{
+						str[digits] = nums % 10;
+						nums = nums / 10;
+						digits++;		
+					}
+					for (count = digits - 1; count >= 0; count--)
+					{
+						_putchar(str[count] + '0');
+						nprint++;
+					}
 				}
-				while (count <= digits)
+				else if (nums < 0)
 				{
-					str[count] = (temp % 10);
-					_putchar(str[count]);
-					temp = ((temp - str[count]) / 10);
+					str[0] = '-';
+					nums *= - 1;
+					while (nums > 0)
+					{
+						str[neg] = nums % 10;
+						nums = nums / 10;
+						neg++;
+					}
+					_putchar(str[0]);
 					nprint++;
-					count++;
+					for (count = neg - 1; count >= 1; count--)
+					{
+						_putchar(str[count] + '0');
+						nprint++;
+					}
+				}
+				else
+				{
+					str[0] = nums;
+					_putchar(str[0] + '0');
+					nprint++;
 				}
 				for (count = per + 2; format[count] != '\0'; count++)
 				{
 					_putchar(format[count]);
+					nprint++;
 				}
-				nprint--;
 			}
 			break;
 			case 's':
