@@ -3,7 +3,7 @@
 #include <stdio.h>
 int _printf(const char *format, ...)
 {
-	int len, per, count, nprint, digits, neg;
+	int len, per, count, nprint, digits, neg, lent;
 	char *token;
 
 	int nums;
@@ -37,6 +37,29 @@ int _printf(const char *format, ...)
 			case '\0':
 			{
 				nprint = 0;
+			}
+			break;
+			case 'r':
+			{
+				for (count = 0; count < per; count++)
+				{
+					_putchar(format[count]);
+					nprint++;
+				}
+				token = va_arg(list, char *);
+				for (lent = 0; token[lent] != '\0'; lent++)
+				{
+				}
+				for (count = lent - 1; count >=0; count--)
+				{
+					_putchar(token[count]);
+					nprint++;
+				}
+				for (count = per + 2; format[count] != '\0'; count++)
+				{
+					_putchar(token[count]);
+					nprint++;
+				}
 			}
 			break;
 			case 'b':
