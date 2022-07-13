@@ -78,6 +78,41 @@ int _printf(const char *format, ...)
 				}
 			}
 			break;
+			case 'u':
+			{
+				for (count = 0; count < per; count++)
+				{
+					_putchar(format[count]);
+					nprint++;
+				}
+				nums = va_arg(list, int);
+				if (nums > 0)
+				{
+					while (nums > 0)
+					{
+						str[digits] = nums % 10;
+						nums = nums / 10;
+						digits++;		
+					}
+					for (count = digits - 1; count >= 0; count--)
+					{
+						_putchar(str[count] + '0');
+						nprint++;
+					}
+				}
+				else
+				{
+					str[0] = nums;
+					_putchar(str[0] + '0');
+					nprint++;
+				}
+				for (count = per + 2; format[count] != '\0'; count++)
+				{
+					_putchar(format[count]);
+					nprint++;
+				}
+			}
+			break;
 			case 'i':
 			{
 				for (count = 0; count < per; count++)
